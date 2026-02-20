@@ -1,0 +1,88 @@
+params:
+  latent_dim:
+    choice:
+    - 16
+  enc_layers:
+    choice:
+    - 3
+  enc_hidden:
+    choice:
+    - 8
+  dec_layers:
+    choice:
+    - 1
+  dec_hidden:
+    choice:
+    - 64
+  dropout:
+    choice:
+    - 6.096124315253317e-07
+  variational:
+    choice:
+    - true
+  alpha_REC:
+    choice:
+    - 2.2312136501786734e-05
+  alpha_KLD:
+    choice:
+    - 0.015298185352827877
+  alpha_NLL:
+    choice:
+    - 0.01958856113002221
+  alpha_RANK:
+    choice:
+    - 0.0001499523218695248
+  lr:
+    choice:
+    - 0.0004032445035590113
+  activation:
+    choice:
+    - gelu
+  weight_decay:
+    choice:
+    - 0.0229806554140937
+  batch_size:
+    choice:
+    - 16
+  lr_scheduler:
+    choice:
+    - cosine_annealing
+  interpolation:
+    choice:
+    - linear
+  clustering_method:
+    choice:
+    - GaussianMixture
+  n_clusters:
+    choice:
+    - 5
+  num_durations:
+    choice:
+    - 14
+  num_layers:
+    choice:
+    - 1
+  hidden_units:
+    choice:
+    - 64
+  alpha_DVC:
+    choice:
+    - 0.08696350390647119
+  alpha_IVCG:
+    choice:
+    - 2.6544875065738392e-05
+  alpha_IVIW:
+    choice:
+    - 0.0004440956479574845
+  alpha_IVCW:
+    choice:
+    - 0.006354980426549095
+  use_cluster_heads:
+    choice:
+    - false
+  covariance_type:
+    choice:
+    - tied
+  reg_covar:
+    choice:
+    - 4.2434101026053185e-05

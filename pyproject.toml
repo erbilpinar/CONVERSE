@@ -1,0 +1,40 @@
+[project]
+name = "survbase"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Alberto Archetti",email = "alberto1.archetti@mail.polimi.it"}
+]
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "numpy (>=2.3.4,<3.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
+    "numba (>=0.62.1,<0.63.0)",
+    "scikit-learn (>=1.7.2,<2.0.0)",
+    "torch (>=2.9.1,<3.0.0)",
+    "loguru (>=0.7.3,<0.8.0)",
+    "optuna (>=4.6.0,<5.0.0)",
+    "ray[tune] (>=2.51.1,<3.0.0)",
+    "pydantic (>=2.12.4,<3.0.0)",
+    "xgboost (>=3.1.1,<4.0.0)",
+    "pykan (>=0.2.8,<0.3.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.code-quality.dependencies]
+black = "^25.11.0"
+isort = "^7.0.0"
+
+
+[tool.poetry.group.jupyter.dependencies]
+jupyter = "^1.1.1"
+ipywidgets = "^8.1.8"
+matplotlib = "^3.10.7"
+seaborn = "^0.13.2"
+plotly = "^6.4.0"
+

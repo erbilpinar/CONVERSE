@@ -1,0 +1,24 @@
+params:
+  num_durations: {int: [5, 20]}
+  num_layers: {int: [1, 4]}
+  hidden_units:
+    choice: [8, 16, 23, 64, 128]
+  activation:
+    choice: ["relu", "gelu"]
+  dropout: {uniform: [0.0, 0.4]}
+  batchnorm: {bool: [0.5]}
+  residual: {bool: [0.5]}
+  use_attention: {bool: [0.2]}
+  epochs:
+    choice: [300]
+  batch_size:
+    choice: [null, 64, 128, 256, 512]
+  lr: {loguniform: [1e-4, 5e-3]}
+  weight_decay: {loguniform: [1e-7, 1e-3]}
+  patience: {int: [5, 60]}
+  val_fraction:
+    choice: [0.15]
+  lr_scheduler:
+    choice: [null, "step", "plateau"]
+  interpolation:
+    choice: ["step", "linear"]

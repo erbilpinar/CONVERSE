@@ -1,0 +1,36 @@
+params:
+  # training
+  epochs: {int: [200, 1000]}
+  lr: {loguniform: [1e-4, 1e-3]}
+  weight_decay: {loguniform: [1e-7, 1e-3]}
+  patience: {int: [10, 25]}
+  val_fraction:
+    choice: [0.15]
+  lr_scheduler:
+    choice: [null, "step", "plateau"]
+  interpolation:
+    choice: ["step", "linear"]
+  batch_size: 
+    choice: [64, 128, 256, 1024]          
+  # architecture
+  latent_dim: {int: [8, 32]}
+  K_clusters: {int: [2, 5]}
+  enc_layers: {int: [1, 3]}
+  enc_hidden: {int: [64, 256]}
+  dec_layers: {int: [1, 3]}
+  dec_hidden: {int: [64, 256]}
+  dropout: {uniform: [0.0, 0.3]}
+  activation:
+    choice: ["relu", "tanh"]
+
+  # loss weights (log-scale since they vary by orders of magnitude)
+  alpha_REC: {loguniform: [1e-5, 1]}
+  alpha_DVC: {loguniform: [1e-5, 1]}
+  alpha_IVCG: {loguniform: [1e-5, 1]}
+  alpha_IVIW: {loguniform: [1e-5, 1]}
+  alpha_IVCW: {loguniform: [1e-5, 1]}
+  alpha_NLL: {loguniform: [1e-5, 1]}
+  alpha_RANK: {loguniform: [1e-5, 1]}
+
+  # SPL
+  spl_percentile: {uniform: [0.5, 0.9]}

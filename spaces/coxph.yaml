@@ -1,0 +1,12 @@
+params:
+  epochs:
+    choice: [300]
+  lr: {loguniform: [1e-3, 1e-2]}
+  weight_decay: {loguniform: [1e-7, 1e-3]}
+  patience: {int: [5, 60]}
+  val_fraction:
+    choice: [0.15]
+  lr_scheduler:
+    choice: [null, "step", "plateau"]
+  interpolation:
+    choice: ["step", "linear"]

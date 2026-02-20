@@ -1,0 +1,63 @@
+params:
+  # ---- training ----
+  epochs:          {int: [100, 200]}
+  batch_size:      {int: [64, 256]}
+  lr:              {loguniform: [5e-4, 1e-3]}
+  weight_decay:    {loguniform: [1e-7, 1e-3]}
+  patience:        {int: [8, 20]}
+  val_fraction:
+    choice: [0.15]
+  lr_scheduler:
+    choice: [null, "plateau"]
+  interpolation:   # unused by SCA but kept for API compatibility
+    choice: ["step"]
+
+  # ---- mixture / DP ----
+  K:               {int: [20, 40]}         # truncated number of components
+  gamma0:
+    choice: [2.0, 3.0, 4.0, 8.0]           # DP concentration parameter
+  nu:
+    choice: [1.0]                          # Student-t degrees of freedom (1 = Cauchy)
+
+  # ---- latent + generator ----
+  latent_dim:      {int: [8, 32]}
+  mc_samples:      {int: [8, 16]}          # MC draws per subject during training
+
+  # encoder (x -> z)
+  enc_layers:      {int: [1, 3]}
+  enc_hidden:
+    choice: [64, 128, 256]
+
+  # generator ([z, ε] -> t)
+  gen_layers:      {int: [1, 3]}
+  gen_hidden:
+    choice: [64, 128, 256]
+
+  activation:
+    choice: ["relu", "gelu"]
+  dropout:
+    choice: [0.0, 0.1, 0.2, 0.3]
+  batchnorm:
+    choice: [false]
+  residual:
+    choice: [false, true]
+  bias:
+    choice: [true]
+
+  # ---- noise for ε ----
+  noise_dist:
+    choice: ["uniform", "gaussian"]       # type of base noise
+  standardize_uniform:
+    choice: [false, true]                 # if uniform, map to mean=0, var=1
+  noise_loc:
+    choice: [0.0]                         # shift for Gaussian; keep 0
+  noise_scale:
+    choice: [1.0]                         # std for Gaussian; keep 1 unless tuned
+
+  # ---- loss weights ----
+  lambda_acc:
+    choice: [0.5, 1.0, 2.0, 4.0]          # accuracy term (DATE)
+  lambda_cal:
+    choice: [1.0, 2.0, 4.0]          # calibration term (KM)
+  lambda_dp:
+    choice: [0.5, 1.0, 2.0, 4.0]          # DP matching term

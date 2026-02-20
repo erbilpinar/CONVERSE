@@ -1,0 +1,61 @@
+# VaDeSC search space (built from Tables 8–11)
+# Paper hints:
+# - Tabular enc/dec: shallow (e.g., 50–100–J and J–100–50) for SUPPORT/FLChain/Hemodialysis. 
+# - Synthetic/image: deeper/wider MLPs (e.g., 500–500–2000 / 2000–500–500) or VGG blocks for images. 
+# - Typical hyperparams: J in {4,16,32}, K in {2–5}, LR≈1e-3 (sometimes 2e-3), batch 64–256, epochs 300±. 
+
+params:
+  # ---- training ----
+  epochs: {int: [100, 600]}           # Table 11 uses 300 for most tabular; allow 100–600. 
+  batch_size:
+    choice: [64, 128, 256]            # 256 common; 64 for small images; cover tabular too. 
+  lr:
+    loguniform: [5e-4, 2e-3]          # Paper uses 1e-3, sometimes 2e-3 (Hemodialysis). 
+  weight_decay:
+    loguniform: [1e-7, 1e-3]
+  patience: {int: [10, 40]}
+  val_fraction:
+    choice: [0.15]
+  lr_scheduler:
+    choice: [null, "step", "plateau"]
+
+  # ---- general utils (kept for parity with other models) ----
+  interpolation:
+    choice: ["step", "linear"]
+
+  # ---- VaDeSC-specific architecture ----
+  K:
+    choice: [2, 3, 4, 5]               # Table 11 spans 2–5 (plus 4 for NSCLC). Tune per dataset. 
+  latent_dim:
+    choice: [4, 8, 16, 32]             # J in {4,16,32} appear in Table 11; add 8 as a modest option.
+  recon_distribution:
+    choice: ["gaussian", "bernoulli"]  # Paper uses Gaussian for tabular, sigmoid/BCE for images. 
+
+  # MLP encoder/decoder depth & width (tabular presets from Tables 8–9; plus generic compact options)
+  enc_hidden:
+    choice:
+      - [50, 100]                      # SUPPORT/FLChain/Hemodialysis encoder. 
+      - [128, 128]
+      - [256, 128]
+  dec_hidden:
+    choice:
+      - [100, 50]                      # SUPPORT/FLChain/Hemodialysis decoder. 0}
+      - [128, 128]
+      - [128, 256]
+
+  activation:
+    choice: ["relu", "gelu"]                   # Matches paper.
+  dropout:
+    choice: [0.0, 0.1, 0.2]
+  batchnorm:
+    choice: [false, true]
+  residual:
+    choice: [false, true]                    # Keep simple unless you want to explore skips.
+
+  # ---- VaDeSC loss weights (paper uses 1.0) ----
+  lambda_recon:
+    choice: [1.0]
+  lambda_surv:
+    choice: [1.0]
+  lambda_kl:
+    choice: [1.0]

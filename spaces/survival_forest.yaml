@@ -1,0 +1,8 @@
+params:
+  n_estimators: {int: [50, 300]}
+  max_depth:
+    choice: [null, 1, 3, 5]
+  interpolation:
+    choice: ["step", "linear"]
+  n_jobs:
+    choice: [4]

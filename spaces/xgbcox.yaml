@@ -1,0 +1,10 @@
+params:
+  num_boost_round: {int: [50, 200]}
+  learning_rate: {loguniform: [0.01, 0.3]}
+  max_depth: {int: [1, 5]}
+  subsample: {uniform: [0.6, 1.0]}
+  colsample_bytree: {uniform: [0.6, 1.0]}
+  interpolation:
+    choice: ["step", "linear"]
+  random_state:
+    fixed: null
